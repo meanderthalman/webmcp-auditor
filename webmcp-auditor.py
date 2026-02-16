@@ -28,10 +28,7 @@ class MCPReadinessEngine:
     def __init__(self, url):
         self.url = url
         self.session = httpcloak.Session(preset="chrome-146-win11")
-        self.session.headers.update({
-            "User-Agent": "WebMCP-Auditor-Bot/1.0 (Open Source Agentic Audit; MeanderthalMan)"
-        })
-        
+        # Global Universal Rules
         self.rules = {
             "commerce": ["cart", "checkout", "buy", "product", "sku", "price", "inventory", "shop", "order"],
             "travel": ["flight", "hotel", "book", "stay", "room", "reservation", "destination", "travel", "checkin"],
@@ -54,11 +51,12 @@ class MCPReadinessEngine:
         cms_map = {
             "wp-content": "WordPress / WooCommerce",
             "shopify": "Shopify",
-            "adobe-experience-manager": "AEM",
-            "etc.clientlibs": "AEM",
+            "adobe-experience-manager": "Adobe Experience Manager (AEM)",
+            "etc.clientlibs": "Adobe Experience Manager (AEM)",
+            "sitecore": "Sitecore Enterprise",
             "_next/static": "Next.js / Vercel",
-            "drupal": "Drupal",
-            "magento": "Magento"
+            "drupal": "Drupal CMS",
+            "magento": "Adobe Commerce (Magento)"
         }
         for key, val in cms_map.items():
             if key in html_str: return val
@@ -87,10 +85,12 @@ class MCPReadinessEngine:
 
                 is_static = not bool(re.search(r'[0-9a-f]{5,}', str(form.get('id')))) if form.get('id') else False
                 has_labels = all(inp.get('aria-label') or inp.get('name') for inp in form.find_all(['input']))
-                
+                has_desc = bool(form.get('tooldescription'))
+
                 is_ready = webmcp_name and is_static and has_labels
                 intel_status = "AGENT-VISIBLE" if is_ready else "AGENT-INVISIBLE"
                
+                # Dynamic Logic
                 intel_gap = "None. Tool is natively discoverable."
                 if not webmcp_name: intel_gap = f"Identity Gap. System lacks semantic toolname in {cms} layer."
                 elif not is_static: intel_gap = "Persistence Gap. Dynamic IDs prevent state-machine reliability."
@@ -150,7 +150,7 @@ def index():
     <div class="max-w-[1450px] mx-auto flex-grow">
         <header class="flex justify-between items-center mb-16 border-b pb-10 border-slate-200">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tighter text-slate-900 uppercase">WebMCP Auditor</h1>
+                <h1 class="text-3xl font-extrabold tracking-tighter text-slate-900 uppercase">WebMCP Universal Auditor</h1>
                 <p class="text-slate-400 font-bold text-[10px] uppercase tracking-[0.4em] mt-2">The Global Standard for Agentic Web Interoperability</p>
             </div>
             <div class="flex gap-4">
@@ -189,6 +189,39 @@ def index():
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="toolGrid"></div>
+
+            <div class="grid grid-cols-12 gap-8">
+                <div class="col-span-12 lg:col-span-7 method-box">
+                    <h3 class="text-xl font-black text-slate-900 mb-8 uppercase tracking-tight">The Way Forward: Implementation Roadmap</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-3">
+                            <p class="text-blue-600 font-black text-[10px] uppercase">Phase 01: Visibility</p>
+                            <p class="text-xs font-bold text-slate-500 leading-relaxed">Inject <code>toolname</code> & <code>tooldescription</code> attributes into identified surfaces via CMS templates.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-blue-600 font-black text-[10px] uppercase">Phase 02: Persistence</p>
+                            <p class="text-xs font-bold text-slate-500 leading-relaxed">Disable dynamic ID hashing for 'Tool-Wrapped' components to ensure Agentic state-memory.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12 lg:col-span-5 method-box bg-slate-50">
+                    <h3 class="text-[10px] font-black text-slate-400 mb-6 uppercase tracking-widest">Weightage Methodology</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b pb-3 border-slate-200">
+                            <span class="text-xs font-bold text-slate-600">Semantic Identity (toolname)</span>
+                            <span class="text-xs font-black text-slate-900">40%</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-3 border-slate-200">
+                            <span class="text-xs font-bold text-slate-600">DOM Persistence (Static ID)</span>
+                            <span class="text-xs font-black text-slate-900">30%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-xs font-bold text-slate-600">Agent Readability (Labels)</span>
+                            <span class="text-xs font-black text-slate-900">30%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -222,6 +255,7 @@ def index():
                 document.getElementById('domainTitle').innerText = data.insight.domain;
                 document.getElementById('scoreVal').innerText = data.insight.score;
                 document.getElementById('insightList').innerHTML = data.insight.points.map(p => `<p class="text-xl font-bold text-slate-600">▶ ${p}</p>`).join('');
+               
                 document.getElementById('toolGrid').innerHTML = data.tools.map(t => `
                     <div class="executive-card p-10">
                         <div class="vitals-overlay">
@@ -243,6 +277,10 @@ def index():
                         <div class="space-y-4">
                             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b pb-2">Intelligence Gap</p>
                             <p class="text-[11px] font-bold text-slate-600 leading-relaxed">${t.intel_gap}</p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-slate-50">
+                            <p class="text-[9px] font-black text-blue-600 uppercase mb-1">Recommended Fix:</p>
+                            <p class="text-[10px] font-bold text-slate-500">${t.agentic_fix}</p>
                         </div>
                     </div>
                 `).join('');
