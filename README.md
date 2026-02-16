@@ -1,4 +1,3 @@
-```markdown
 # 🤖 webmcp-auditor
 
 **The Global Benchmark for Agentic Web Readiness.** [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
@@ -28,7 +27,6 @@ Traditional SEO and accessibility (ARIA) are no longer enough. AI Agents require
 ## 🛠️ Installation & Local Run
 If you prefer to run the auditor locally:
 
-```bash
 # Clone the repo
 git clone [https://github.com/meanderthalman/webmcp-auditor.git](https://github.com/meanderthalman/webmcp-auditor.git)
 cd webmcp-auditor
@@ -38,8 +36,6 @@ pip install -r requirements.txt
 
 # Run the app
 python webmcp-auditor.py
-
-```
 
 Open your browser to `http://127.0.0.1:5000`.
 
