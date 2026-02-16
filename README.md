@@ -1,22 +1,35 @@
 # 🤖 webmcp-auditor
 
-**The Global Benchmark for Agentic Web Readiness.** `webmcp-auditor` is an open-source diagnostic tool designed to measure how "AI-agent-friendly" a website is. As the web shifts from human-centric browsing to agentic execution, this tool helps developers identify technical gaps that prevent autonomous agents (like Claude Operator or OpenAI Operator) from successfully navigating and interacting with their site.
+**The Global Benchmark for Agentic Web Readiness.** [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 
+
+## 🌐 Live Demo
+**Try the tool now:** [https://webmcp-auditor.onrender.com](https://webmcp-auditor.onrender.com)  
+*(Note: As this is hosted on a free tier, it may take 30-60 seconds to "wake up" on the first load.)*
+
+---
 
 ## 🎯 Why This Matters
-Traditional SEO and accessibility (ARIA) are no longer enough. AI Agents require **Semantic Identity** and **DOM Persistence** to function without "hallucinating" or losing context. This tool audits your site against the **WebMCP (Web Machine Learning Protocol)** standards to ensure your business logic is discoverable by the next generation of agents.
+Traditional SEO and accessibility (ARIA) are no longer enough. AI Agents require **Semantic Identity** and **DOM Persistence** to function without losing context. This tool audits your site against the **WebMCP (Web Machine Learning Protocol)** standards to ensure your business logic is discoverable by autonomous agents.
 
 ## 🚀 Key Features
 * **Strategic Readiness Index:** A quantitative score (0-100) based on agentic interoperability.
-* **Semantic Identity Audit:** Detects missing `toolname` attributes required for agentic discovery.
+* **Semantic Identity Audit:** Detects missing `toolname` attributes required for agent discovery.
 * **DOM Persistence Check:** Flags dynamic/hashed IDs (CSS-in-JS) that break agentic state-machines.
-* **Heuristic Industry Analysis:** Categorizes surfaces into Commerce, Travel, Finance, and more.
 * **One-Click Recommendations:** Provides specific "Agentic Fixes" tailored to your CMS (WordPress, Shopify, Next.js, etc.).
 
-## 🛠️ Quick Start
+## 🛠️ Installation & Local Run
+If you prefer to run the auditor locally:
 
-### 1. Installation
-Ensure you are in your Python virtual environment:
 ```bash
-pip install flask httpcloak beautifulsoup4
+# Clone the repo
+git clone [https://github.com/meanderthalman/webmcp-auditor.git](https://github.com/meanderthalman/webmcp-auditor.git)
+cd webmcp-auditor
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+python webmcp-auditor.py
