@@ -150,8 +150,8 @@ def index():
     <div class="max-w-[1450px] mx-auto flex-grow">
         <header class="flex justify-between items-center mb-16 border-b pb-10 border-slate-200">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tighter text-slate-900 uppercase">WebMCP Universal Auditor</h1>
-                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-[0.4em] mt-2">The Global Standard for Agentic Web Interoperability</p>
+                <h1 class="text-3xl font-extrabold tracking-tighter text-slate-900 uppercase">WebMCP Auditor</h1>
+                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-[0.4em] mt-2">Measuring AI Agent Friendliness of Websites</p>
             </div>
             <div class="flex gap-4">
                 <button onclick="location.reload()" class="bg-white border border-slate-200 text-slate-500 px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-50 transition-all">Reset Auditor</button>
